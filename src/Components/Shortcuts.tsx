@@ -86,72 +86,67 @@ export default function Shortcuts({
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 mb-16 mt-2">
-      {shortcuts.slice(0,rowCount*8).map((shortcut, index) => (
-        <div
-          key={index}
-          className="group p-3 border-2 rounded-2xl border-gray-400 transition duration-300 ease-in-out hover:border-white hover:shadow-2xl hover:scale-105 relative"
-        >
-          <button
-            type="button"
-            onClick={() => window.location.href = shortcut.href}
-            className="shortcut-card"
-          >
-            {shortcut.image ? (
-              <img
-                src={shortcut.image}
-                alt={shortcut.title}
-                className="w-12 h-12 rounded-xl object-cover"
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-xl bg-indigo-500 text-white grid place-items-center font-bold">
-                {shortcut.title?.[0] ?? '?'}
-              </div>
-            )}
-          </button>
+    <div className="flex flex-wrap items-start justify-center gap-4 mb-16 mt-2">
+      {shortcuts.slice(0, rowCount * 8).map((shortcut, index) => (
+  <div key={index} className="flex flex-col items-center gap-1 w-20 flex-shrink-0">
+    <div className="group p-3 border-2 rounded-2xl border-gray-400 transition duration-300 ease-in-out hover:border-white hover:shadow-2xl hover:scale-105 relative w-20 h-20 flex items-center justify-center">
+      <button
+        type="button"
+        onClick={() => window.location.href = shortcut.href}
+        className="shortcut-card"
+      >
+        {shortcut.image ? (
+          <img
+            src={shortcut.image}
+            alt={shortcut.title}
+            className="w-12 h-12 rounded-xl object-cover"
+          />
+        ) : (
+          <div className="w-12 h-12 rounded-xl bg-indigo-500 text-white grid place-items-center font-bold">
+            {shortcut.title?.[0] ?? '?'}
+          </div>
+        )}
+      </button>
 
-          <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className="absolute -right-3 top-0 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rotate-90"
-                variant="outline"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="#FFFFFF"
-                >
-                  <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                </svg>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-slate-800 text-white border-none shadow-lg">
-              <DropdownMenuGroup>
-                <DropdownMenuLabel
-                  className="text-white cursor-pointer hover:bg-slate-700"
-                  onClick={() => onEdit(index)}
-                >
-                  Edit
-                </DropdownMenuLabel>
-                <DropdownMenuItem
-                  className="text-white cursor-pointer hover:bg-slate-700"
-                  onClick={() => onDelete(index)}
-                >
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      ))}
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className="absolute -right-2 top-0 border-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rotate-90"
+            variant="outline"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+              <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
+            </svg>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="bg-slate-800 text-white border-none shadow-lg">
+          <DropdownMenuGroup>
+            <DropdownMenuLabel
+              className="text-white cursor-pointer hover:bg-slate-700"
+              onClick={() => onEdit(index)}
+            >
+              Edit
+            </DropdownMenuLabel>
+            <DropdownMenuItem
+              className="text-white cursor-pointer hover:bg-slate-700"
+              onClick={() => onDelete(index)}
+            >
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+
+    <span className="text-xs text-white text-center w-full line-clamp-2 break-words">{shortcut.title}</span>
+  </div>
+))}
 
       <Dialog open={open} onOpenChange={onOpenChange}>
         {shortcutEnabled && (
           <DialogTrigger asChild>
-            <div className="p-3 border-2 rounded-2xl border-gray-400 transition duration-300 ease-in-out hover:border-white hover:shadow-2xl hover:scale-105 relative cursor-pointer">
-              <div className="w-12 h-12 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-1 w-20 flex-shrink-0 cursor-pointer">
+              <div className="border-2 rounded-2xl border-gray-400 transition duration-300 ease-in-out hover:border-white hover:shadow-2xl hover:scale-105 relative w-20 h-20 flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
